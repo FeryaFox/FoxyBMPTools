@@ -6,6 +6,7 @@ import ru.feryafox.FoxyBMPTools.models.Image;
 import ru.feryafox.FoxyBMPTools.utils.ColorChannelSeparator;
 import ru.feryafox.FoxyBMPTools.utils.HeaderPrinter;
 import ru.feryafox.FoxyBMPTools.utils.ImageBitPlaneSlicer;
+import ru.feryafox.FoxyBMPTools.utils.LibraryProcessor;
 
 
 public class Main {
@@ -33,14 +34,23 @@ public class Main {
 
             System.out.println(image);
 
-            if (fargs.isPrintHeaders()) {
-                HeaderPrinter.printHeader(image);
-            }
-            if (fargs.isSeperateColorChannel()) {
-                ColorChannelSeparator.decomposeImage(image, fileName);
-            }
-            if (fargs.isSliceBitClane()) {
-                ImageBitPlaneSlicer.sliceImageToBitPlanes(image, fileName);
+            if (fargs.isUseLibrary()) {
+                LibraryProcessor.processWithLibrary(
+                        fileName,
+                        fargs.isPrintHeaders(),
+                        fargs.isSeperateColorChannel(),
+                        fargs.isSliceBitClane()
+                );
+            } else {
+                if (fargs.isPrintHeaders()) {
+                    HeaderPrinter.printHeader(image);
+                }
+                if (fargs.isSeperateColorChannel()) {
+                    ColorChannelSeparator.decomposeImage(image, fileName);
+                }
+                if (fargs.isSliceBitClane()) {
+                    ImageBitPlaneSlicer.sliceImageToBitPlanes(image, fileName);
+                }
             }
         }
         catch (com.beust.jcommander.ParameterException e) {
