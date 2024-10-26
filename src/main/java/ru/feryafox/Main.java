@@ -40,7 +40,9 @@ public class Main {
                 ColorChannelSeparator.decomposeImage(image, fileName);
             }
             if (fargs.isSliceBitClane()) {
-                ImageBitPlaneSlicer.sliceImageToBitPlanes(image, fileName);
+                Image gImage = ImageBitPlaneSlicer.convertToGrayscale(image, fileName);
+
+                ImageBitPlaneSlicer.sliceImageToBitPlanes(gImage, fileName);
             }
         }
         catch (com.beust.jcommander.ParameterException e) {

@@ -1,5 +1,6 @@
 package ru.feryafox.FoxyBMPTools.utils;
 
+import ru.feryafox.FoxyBMPTools.BMPReader.BMPReader;
 import ru.feryafox.FoxyBMPTools.BMPWriter.BMPWriter;
 import ru.feryafox.FoxyBMPTools.models.Image;
 
@@ -29,4 +30,46 @@ public class ImageBitPlaneSlicer {
             writer.write(bitPlaneImage);
         }
     }
+
+    public static Image convertToGrayscale(Image image, String baseFilename) {
+        int height = image.getInfo().getBiHeight();
+        int width = image.getInfo().getBiWidth();
+
+        Image gImage = new Image(width, height);
+
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                Image.Pixel pixel = image.getPixel(x, y);
+
+                int gray = (int) (0.29 * pixel.getRed() + 0.59 * pixel.getGreen() + 0.11 * pixel.getBlue());
+
+//                if (gray != 0) {
+//                    gray++;
+//                }
+
+                Image.Pixel newPixel = new Image.Pixel(gray, gray, gray);
+                gImage.setPixel(x, y, newPixel);
+            }
+        }
+
+        BMPWriter writer = new BMPWriter(baseFilename.replace(".bmp", "_gray.bmp"));
+        writer.write(gImage);
+        return gImage;
+    }
+
+//    public static void main(String[] args) {
+//        BMPReader reader = new BMPReader("example_fix.bmp");
+//
+//        Image image = reader.read();
+//
+//
+//        convertToGrayscale(image, "example_fix.bmp");
+//
+//        BMPReader reader1 = new BMPReader("example_fix_gray.bmp");
+//
+//        Image image1 = reader1.read();
+//
+//        sliceImageToBitPlanes(image1, "example_fix_gray.bmp");
+//
+//    }
 }
