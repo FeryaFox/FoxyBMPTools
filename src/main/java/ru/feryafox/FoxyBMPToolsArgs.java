@@ -24,8 +24,4 @@ public class FoxyBMPToolsArgs {
     @Parameter(names = {"-h", "--help"}, description = "Показывает помощь", help = true)
     @Getter
     private boolean help = false;
-
-    @Parameter(names = {"-l", "--use-library"}, description = "Использовать библиотечные методы обработки")
-    @Getter
-    private boolean useLibrary = false;
 }

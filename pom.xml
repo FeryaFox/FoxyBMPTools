@@ -6,7 +6,7 @@
 
     <groupId>ru.feryafox</groupId>
     <artifactId>FoxyBMPTools</artifactId>
-    <version>1.1</version>
+    <version>1.0</version>
 
     <properties>
         <maven.compiler.source>22</maven.compiler.source>

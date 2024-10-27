@@ -7,6 +7,8 @@ import ru.feryafox.FoxyBMPTools.models.Image;
 
 import java.io.*;
 
+
+
 public class BMPReader {
     private final String path;;
 
