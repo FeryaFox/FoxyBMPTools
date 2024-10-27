@@ -16,14 +16,10 @@ public class ImageBitPlaneSlicer {
             for (int y = 0; y < height; y++) {
                 for (int x = 0; x < width; x++) {
                     int pixel = image.getImage()[y][x];
-                    // Извлекаем бит для текущей плоскости
                     int bit = (pixel >> plane) & 1;
-                    // Устанавливаем пиксель белым или черным в зависимости от значения бита
                     bitPlaneImage.setPixel(x, y, bit * 255, bit * 255, bit * 255);
                 }
             }
-
-            // Сохраняем изображение битовой плоскости в отдельный файл
 
             String filename =baseFilename.replace(".bmp", "_plane_" + plane + ".bmp");
             BMPWriter writer = new BMPWriter(filename);
@@ -40,11 +36,8 @@ public class ImageBitPlaneSlicer {
             for (int x = 0; x < width; x++) {
                 Image.Pixel pixel = image.getPixel(x, y);
 
-                // Сначала получаем серое значение используя стандартные веса
                 int gray = (int)Math.round(0.299 * pixel.getRed() + 0.587 * pixel.getGreen() + 0.114 * pixel.getBlue());
 
-
-//                // Убеждаемся, что значение не выходит за пределы 0-255
 //                gray = Math.min(255, Math.max(0, gray));
 
                 Image.Pixel newPixel = new Image.Pixel(gray, gray, gray);
