@@ -31,7 +31,6 @@ public class Main {
                 return;
             }
 
-            System.out.println(image);
 
             if (fargs.isPrintHeaders()) {
                 HeaderPrinter.printHeader(image);

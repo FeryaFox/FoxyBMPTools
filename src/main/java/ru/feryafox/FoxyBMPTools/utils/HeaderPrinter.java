@@ -14,7 +14,16 @@ public class HeaderPrinter {
         at.addRule();
         at.addRow("Поле", "Значение");
         at.addRule();
-        at.addRow("Тип файла", fileHeader.getBfType());
+
+        short bfType = fileHeader.getBfType();
+
+        String fileTypeB = String.valueOf((char) (bfType & 0xFF)) +
+                (char) (byte) ((bfType >> 8) & 0xFF) +
+                " (" +
+                bfType +
+                ")";
+
+        at.addRow("Тип файла", fileTypeB);
         at.addRow("Размер файла в байтах", fileHeader.getBfSize());
         at.addRow("Резервное поле", fileHeader.getBfReserved1());
         at.addRow("Резервное поле", fileHeader.getBfReserved2());

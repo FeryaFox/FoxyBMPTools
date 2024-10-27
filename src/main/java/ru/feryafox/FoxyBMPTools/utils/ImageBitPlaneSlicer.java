@@ -34,18 +34,18 @@ public class ImageBitPlaneSlicer {
     public static Image convertToGrayscale(Image image, String baseFilename) {
         int height = image.getInfo().getBiHeight();
         int width = image.getInfo().getBiWidth();
-
         Image gImage = new Image(width, height);
 
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
                 Image.Pixel pixel = image.getPixel(x, y);
 
-                int gray = (int) (0.29 * pixel.getRed() + 0.59 * pixel.getGreen() + 0.11 * pixel.getBlue());
+                // Сначала получаем серое значение используя стандартные веса
+                int gray = (int)Math.round(0.299 * pixel.getRed() + 0.587 * pixel.getGreen() + 0.114 * pixel.getBlue());
 
-//                if (gray != 0) {
-//                    gray++;
-//                }
+
+//                // Убеждаемся, что значение не выходит за пределы 0-255
+//                gray = Math.min(255, Math.max(0, gray));
 
                 Image.Pixel newPixel = new Image.Pixel(gray, gray, gray);
                 gImage.setPixel(x, y, newPixel);
@@ -57,19 +57,13 @@ public class ImageBitPlaneSlicer {
         return gImage;
     }
 
-//    public static void main(String[] args) {
-//        BMPReader reader = new BMPReader("example_fix.bmp");
-//
-//        Image image = reader.read();
-//
-//
-//        convertToGrayscale(image, "example_fix.bmp");
-//
-//        BMPReader reader1 = new BMPReader("example_fix_gray.bmp");
-//
-//        Image image1 = reader1.read();
-//
-//        sliceImageToBitPlanes(image1, "example_fix_gray.bmp");
-//
-//    }
+    public static void main(String[] args) {
+
+        BMPReader reader1 = new BMPReader("example_gray.bmp");
+
+        Image image1 = reader1.read();
+
+        sliceImageToBitPlanes(image1, "example_gray.bmp");
+
+    }
 }
